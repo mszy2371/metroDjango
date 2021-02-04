@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+</head>
+<body>
+    <form>
+
+    </form>
+
+    {{ today }}
+    <table rules="all">
+        <tr>
+            <th>Drivers</th>
+            {% for day in weekdays %}
+            {% if day == today %}
+            <th><h3>{{ day }}</h3></th>
+            {% else %}
+            <th>{{ day }}</th>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% for driver, line in mixed %}
+        <tr>
+            <td>{{ driver }}</td>
+            {% for item in line %}
+            <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+       </table>
+</body>
+</html>
