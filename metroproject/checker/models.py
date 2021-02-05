@@ -26,7 +26,7 @@ class MondayThursday(models.Model):
     card = models.FileField(blank=True)
 
     def __str__(self):
-        return f'{self.duty} {self.start_time} - {self.finish_time}'
+        return f'MON-THU: {self.duty} {self.start_time} - {self.finish_time}'
 
 
 class Friday(models.Model):
@@ -37,7 +37,7 @@ class Friday(models.Model):
     card = models.FileField(blank=True)
 
     def __str__(self):
-        return f'{self.duty} {self.start_time} - {self.finish_time}'
+        return f'FRI: {self.duty} {self.start_time} - {self.finish_time}'
 
 
 class Saturday(models.Model):
@@ -48,7 +48,7 @@ class Saturday(models.Model):
     card = models.FileField(blank=True)
 
     def __str__(self):
-        return f'{self.duty} {self.start_time} - {self.finish_time}'
+        return f'SAT: {self.duty} {self.start_time} - {self.finish_time}'
 
 
 class Sunday(models.Model):
@@ -59,24 +59,24 @@ class Sunday(models.Model):
     card = models.FileField(blank=True)
 
     def __str__(self):
-        return f'{self.duty} {self.start_time} - {self.finish_time}'
+        return f'SUN: {self.duty} {self.start_time} - {self.finish_time}'
 
 
 class Rota(models.Model):
     saturday = models.ForeignKey(Saturday, on_delete=models.CASCADE,
-                                 related_name='sat_rota', verbose_name='Saturday')
+                                 related_name='sat_rota', verbose_name='Saturday', db_column='saturday')
     sunday = models.ForeignKey(Sunday, on_delete=models.CASCADE,
-                               related_name='sun_rota', verbose_name='Sunday')
+                               related_name='sun_rota', verbose_name='Sunday', db_column='sunday')
     monday = models.ForeignKey(MondayThursday, on_delete=models.CASCADE,
-                               related_name='mon_rota', verbose_name='Monday')
+                               related_name='mon_rota', verbose_name='Monday', db_column='monday')
     tuesday = models.ForeignKey(MondayThursday, on_delete=models.CASCADE,
-                                related_name='tue_rota', verbose_name='Tuesday')
+                                related_name='tue_rota', verbose_name='Tuesday', db_column='tuesday')
     wednesday = models.ForeignKey(MondayThursday, on_delete=models.CASCADE,
-                                  related_name='wed_rota', verbose_name='Wednesday')
+                                  related_name='wed_rota', verbose_name='Wednesday', db_column='wednesday')
     thursday = models.ForeignKey(MondayThursday, on_delete=models.CASCADE,
-                                 related_name='thu_rota', verbose_name='Thursday')
+                                 related_name='thu_rota', verbose_name='Thursday', db_column='thursday')
     friday = models.ForeignKey(Friday, on_delete=models.CASCADE,
-                               related_name='fri_rota', verbose_name='Friday')
+                               related_name='fri_rota', verbose_name='Friday', db_column='friday')
 
     def __str__(self):
         return f'{self.saturday} {self.sunday} {self.monday} {self.tuesday}' \
