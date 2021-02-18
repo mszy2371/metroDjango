@@ -1,0 +1,37 @@
+{% extends "checker/layout.html" %}
+
+{% block title %}
+Full Week Rota
+{% endblock %}
+
+{% block body %}
+    {{ chosen_day.capitalize}}
+    {{ chosen_date }}
+<br>
+    week commencing: {{ week_commencing }}
+
+    <table rules="all">
+        <tr>
+            <th>Drivers</th>
+            {% for day in weekdays %}
+            {% if day == chosen_day %}
+            <th><h3>{{ day.capitalize }}</h3></th>
+            {% else %}
+            <th>{{ day.capitalize }}</th>
+            {% endif %}
+            {% endfor %}
+        </tr>
+    {% for driver, line in mixed %}
+        <tr>
+            <td>{{ driver.name }}</td>
+            <td><a href="{% url 'duty_details' 'saturday' line.0 %}">{{ line.0 }}</a> </td>
+            <td><a href="{% url 'duty_details' 'sunday' line.1 %}">{{ line.1 }}</a> </td>
+            <td><a href="{% url 'duty_details' 'monday' line.2 %}">{{ line.2 }}</a> </td>
+            <td><a href="{% url 'duty_details' 'tuesday' line.3 %}">{{ line.3 }}</a> </td>
+            <td><a href="{% url 'duty_details' 'wednesday' line.4 %}">{{ line.4 }}</a> </td>
+            <td><a href="{% url 'duty_details' 'thursday' line.5 %}">{{ line.5 }}</a> </td>
+            <td><a href="{% url 'duty_details' 'saturday' line.6 %}">{{ line.6 }}</a> </td>
+        </tr>
+         {% endfor %}
+       </table>
+{% endblock %}

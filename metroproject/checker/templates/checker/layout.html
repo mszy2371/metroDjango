@@ -5,6 +5,11 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+<nav>
+    <a href="{%url 'full_rota_today' %}">Full week view</a>
+    <a href="{% url 'daily_checker_today' %}">Today's schedule</a>
+    <a href="{% url 'all_duty_details' %}">All duty times</a>
+</nav>
     {% block body %}
     {% endblock %}
 </body>

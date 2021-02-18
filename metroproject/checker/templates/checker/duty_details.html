@@ -1,0 +1,15 @@
+{% extends "checker/layout.html" %}
+
+{% block title %}
+Duty details
+{% endblock %}
+
+{% block body %}
+{{ day }}
+<br>
+{{ duty }}
+<br>
+{{ details }}
+<br>
+<a href="{{ request.META.HTTP_REFERER }}">Return to previous view</a>
+{% endblock %}

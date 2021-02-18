@@ -64,19 +64,19 @@ class Sunday(models.Model):
 
 class Rota(models.Model):
     saturday = models.ForeignKey(Saturday, on_delete=models.CASCADE,
-                                 related_name='sat_rota', verbose_name='Saturday', db_column='saturday')
+                                 related_name='sat_rota', verbose_name='Saturday', db_column='Saturday')
     sunday = models.ForeignKey(Sunday, on_delete=models.CASCADE,
-                               related_name='sun_rota', verbose_name='Sunday', db_column='sunday')
+                               related_name='sun_rota', verbose_name='Sunday', db_column='Sunday')
     monday = models.ForeignKey(MondayThursday, on_delete=models.CASCADE,
-                               related_name='mon_rota', verbose_name='Monday', db_column='monday')
+                               related_name='mon_rota', verbose_name='Monday', db_column='Monday')
     tuesday = models.ForeignKey(MondayThursday, on_delete=models.CASCADE,
-                                related_name='tue_rota', verbose_name='Tuesday', db_column='tuesday')
+                                related_name='tue_rota', verbose_name='Tuesday', db_column='Tuesday')
     wednesday = models.ForeignKey(MondayThursday, on_delete=models.CASCADE,
-                                  related_name='wed_rota', verbose_name='Wednesday', db_column='wednesday')
+                                  related_name='wed_rota', verbose_name='Wednesday', db_column='Wednesday')
     thursday = models.ForeignKey(MondayThursday, on_delete=models.CASCADE,
-                                 related_name='thu_rota', verbose_name='Thursday', db_column='thursday')
+                                 related_name='thu_rota', verbose_name='Thursday', db_column='Thursday')
     friday = models.ForeignKey(Friday, on_delete=models.CASCADE,
-                               related_name='fri_rota', verbose_name='Friday', db_column='friday')
+                               related_name='fri_rota', verbose_name='Friday', db_column='Friday')
 
     def __str__(self):
         return f'{self.saturday} {self.sunday} {self.monday} {self.tuesday}' \

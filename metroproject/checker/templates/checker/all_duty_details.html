@@ -1,0 +1,47 @@
+{% extends "checker/layout.html" %}
+
+{% block title %}
+All duties
+{% endblock %}
+
+{% block body %}
+
+
+<h2>Monday - Thursday duties </h2>
+{% for item in monday %}
+<ul>
+    <li>
+        <a href="{% url 'duty_details' 'monday' item.duty_id %}">{{ item }}</a>
+
+    </li>
+</ul>
+{% endfor %}
+
+<h2>Friday duties </h2>
+{% for item in friday %}
+<ul>
+    <li>
+         <a href="{% url 'duty_details' 'friday' item.duty_id %}">{{ item }}</a>
+    </li>
+</ul>
+{% endfor %}
+
+<h2>Saturday duties </h2>
+{% for item in saturday %}
+<ul>
+    <li>
+         <a href="{% url 'duty_details' 'saturday' item.duty_id %}">{{ item }}</a>
+    </li>
+</ul>
+{% endfor %}
+
+<h2>Sunday duties </h2>
+{% for item in sunday %}
+<ul>
+    <li>
+        <a href="{% url 'duty_details' 'sunday' item.duty_id %}">{{ item }}</a>
+    </li>
+</ul>
+{% endfor %}
+
+{% endblock %}
