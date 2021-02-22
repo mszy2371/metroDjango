@@ -5,11 +5,16 @@ Full Week Rota
 {% endblock %}
 
 {% block body %}
-    {{ chosen_day.capitalize}}
-    {{ chosen_date }}
+    date: {{ given_date }}, {{ chosen_day.capitalize}}
 <br>
     week commencing: {{ week_commencing }}
-
+<br>
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="date"> Enter date for all week view: </label>
+    <input type="date" id="date" name="searched_date" value="{{ given_date }}">
+    <input type="submit" name="submit">
+</form>
     <table rules="all">
         <tr>
             <th>Drivers</th>

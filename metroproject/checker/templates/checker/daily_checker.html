@@ -6,22 +6,29 @@ One day checker
 
 {% block body %}
 
-    {{ chosen_day.capitalize}}
-    {{ chosen_date }}
+    {{ chosen_day.capitalize }}
+    {{ given_date }}
 <br>
-
+<form action="{% url 'daily_checker' given_date %}" method="post">
+    {% csrf_token %}
+    <label for="date"> Enter date to display: </label>
+    <input type="date" id="date"  name="searched_date" value="{{given_date}}">
+    <input type="submit" name="submit">
+</form>
 
  <table rules="all">
         <tr>
             <th>Drivers</th>
             <th>duty details {{ chosen_day }}</th>
+            <th>start time</th>
+            <th>finish time</th>
         </tr>
-         {% for driver, duty, detail in mixed%}
+         {% for driver, duty, detail in mixed %}
         <tr>
             <td> {{ driver }} </td>
             <td> {{ duty }} </td>
-            <td> {{ detail.start_time }}</td>
-            <td> {{ detail.finish_time }}</td>
+            <td> {{ detail.start_time|time:"H:i" }}</td>
+            <td> {{ detail.finish_time|time:"H:i" }}</td>
         </tr>
      {% endfor %}
  </table>
