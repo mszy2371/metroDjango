@@ -7,18 +7,21 @@ Full Week Rota
 {% block body %}
     date: {{ given_date }}, {{ chosen_day.capitalize}}
 <br>
-    week commencing: {{ week_commencing }}
+    week commencing: {{ week_commencing.isoformat }}
 <br>
-<form action="" method="post">
+<form action="{% url 'full_rota_today' %}" method="post">
     {% csrf_token %}
     <label for="date"> Enter date for all week view: </label>
     <input type="date" id="date" name="searched_date" value="{{ given_date }}">
     <input type="submit" name="submit">
+    <br>
+    <a href="{% url 'full_rota' prev_week %}"> Previous week </a>
+        <a href="{% url 'full_rota' next_week %}"> Next week </a>
 </form>
     <table rules="all">
         <tr>
             <th>Drivers</th>
-            {% for day in weekdays %}
+            {% for day in table_dates %}
             {% if day == chosen_day %}
             <th><h3>{{ day.capitalize }}</h3></th>
             {% else %}

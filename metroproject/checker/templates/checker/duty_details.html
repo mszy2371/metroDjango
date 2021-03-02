@@ -10,6 +10,7 @@ Duty details
 {{ duty }}
 <br>
 {{ details }}
+<a href="{% url 'duty_card' day duty %}">see duty card</a>
 <br>
 <a href="{{ request.META.HTTP_REFERER }}">Return to previous view</a>
 {% endblock %}

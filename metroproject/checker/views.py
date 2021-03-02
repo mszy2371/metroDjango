@@ -26,7 +26,15 @@ def full_rota(request, given_date=(dt.date.today()).isoformat(), daily=False):
     week = diff // 7
     day_no = diff % 7
     weekdays = list(mapping.keys())
-    week_commencing = (parsed_date - dt.timedelta(days=day_no)).isoformat()
+    week_commencing = (parsed_date - dt.timedelta(days=day_no))
+    next_week = week_commencing + dt.timedelta(days=7)
+    prev_week = week_commencing - dt.timedelta(days=7)
+    next_day = parsed_date + dt.timedelta(days=1)
+    prev_day = parsed_date - dt.timedelta(days=1)
+    table_dates = []
+    for x in range(0, 7):
+        table_day = week_commencing + dt.timedelta(days=x)
+        table_dates.append(table_day.strftime('%A %Y-%m-%d'))
     drivers = Driver.objects.all()
     rota = Rota.objects.all().values_list(*weekdays)
     current_rota = rota[week: len(rota)] + rota[:week]
@@ -42,20 +50,11 @@ def full_rota(request, given_date=(dt.date.today()).isoformat(), daily=False):
     if daily is False:
         return render(request, 'checker/full_rota.html', context={'mixed': mixed, 'drivers': drivers,
         'weekdays': weekdays, 'chosen_day': weekdays[day_no], 'given_date': given_date,
-        'week_commencing': week_commencing })
+        'week_commencing': week_commencing, 'table_dates': table_dates, 'next_week': next_week, 'prev_week':prev_week})
     else:
         return render(request, 'checker/daily_checker.html', context={'mixed': mixed2, 'drivers': drivers,
-                                                                      'current_day': current_day, 'given_date': given_date,
-                                                                      'chosen_day': weekdays[day_no], 'details': details})
-
-
-# def new_details(request, given_date, daily=False):
-#     if request.method == "POST":
-#         given_date = request.POST["searched_date"]
-#         if given_date is None or given_date is '':
-#             given_date = (dt.date.today()).isoformat()
-#         print(given_date)
-#         return HttpResponseRedirect(reverse('full_rota', kwargs={'given_date': given_date}))
+            'current_day': current_day, 'given_date': given_date, 'chosen_day': weekdays[day_no], 'details': details,
+            'next_day': next_day, 'prev_day': prev_day})
 
 
 def all_duty_details(request):
@@ -67,17 +66,28 @@ def all_duty_details(request):
                                                                       'saturday': saturday, 'sunday': sunday})
 
 
-def duty_details(request,day, duty):
+def duty_details(request, day, duty):
     cls = mapping[day]
     try:
         details = cls.objects.get(duty=duty)
         if details.duty_id == '***':
             details.start_time = 'duty time not specified'
-            details.finish_time = ''
     except cls.DoesNotExist:
         raise Http404("This duty number does not exist on given day")
     return render(request, 'checker/duty_details.html', context={'day': day, 'duty': duty, 'details': details})
 
-
-
+def duty_card(request, day, duty):
+    # parsing correct url due to unified duty card files name convention
+    cls = mapping[day].__name__
+    try:
+        duty = Duty.objects.get(pk=duty)
+        if duty.route == 'N134' and cls in ('Sunday', 'MondayThursday'):
+            cls = 'Sunday_Thursday'
+        elif duty.route == 'N134' and cls in ('Friday', 'Saturday'):
+            cls = 'Friday_Saturday'
+        file_name = '_'.join((duty.route, cls, duty.number)) + '.html'
+        return render(request, f'checker/duty_cards/{duty.route}/{file_name}')
+    except:
+        message = 'No duty card here'
+        return render(request, 'checker/error.html', context={'message': message})
 

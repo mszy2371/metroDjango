@@ -23,7 +23,7 @@ class MondayThursday(models.Model):
                                 related_name='mon_thu_duties', unique=True)
     start_time = models.TimeField(blank=True, null=True)
     finish_time = models.TimeField(blank=True, null=True)
-    card = models.FileField(blank=True)
+    card = models.CharField(max_length=100,  blank=True)
 
     def __str__(self):
         return f'MON-THU: {self.duty} {self.start_time} - {self.finish_time}'
@@ -34,7 +34,7 @@ class Friday(models.Model):
                                 related_name='friday_duties', unique=True)
     start_time = models.TimeField(blank=True, null=True)
     finish_time = models.TimeField(blank=True, null=True)
-    card = models.FileField(blank=True)
+    card = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f'FRI: {self.duty} {self.start_time} - {self.finish_time}'
@@ -45,7 +45,7 @@ class Saturday(models.Model):
                                 related_name='saturday_duties', unique=True)
     start_time = models.TimeField(blank=True, null=True)
     finish_time = models.TimeField(blank=True, null=True)
-    card = models.FileField(blank=True)
+    card = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f'SAT: {self.duty} {self.start_time} - {self.finish_time}'
@@ -56,7 +56,7 @@ class Sunday(models.Model):
                                 related_name='sunday_duties', unique=True)
     start_time = models.TimeField(blank=True, null=True)
     finish_time = models.TimeField(blank=True, null=True)
-    card = models.FileField(blank=True)
+    card = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f'SUN: {self.duty} {self.start_time} - {self.finish_time}'
@@ -81,7 +81,4 @@ class Rota(models.Model):
     def __str__(self):
         return f'{self.saturday} {self.sunday} {self.monday} {self.tuesday}' \
                f' {self.wednesday} {self.thursday} {self.friday}'
-
-
-
 
