@@ -9,21 +9,21 @@ One day checker
     {{ chosen_day.capitalize }}
     {{ given_date }}
 <br>
-<form action="{% url 'daily_checker_today' %}" method="post">
-    {% csrf_token %}
+<form action="{% url 'daily_checker_today' %}" method="get">
     <label for="date"> Enter date to display: </label>
     <input type="date" id="date"  name="searched_date" value="{{given_date}}">
     <input type="submit" name="submit">
 </form>
 <br>
-<a href="{% url 'daily_checker' prev_day %}"> Previous day</a>
-<a href="{% url 'daily_checker' next_day %}"> Next day</a>
+<a href="{% url 'daily_checker' prev_day %}">Previous day</a>
+<a href="{% url 'daily_checker' next_day %}">Next day</a>
+<a href="{% url 'daily_checker' today %}">Show tonight's duties</a>
  <table rules="all">
         <tr>
             <th>Drivers</th>
-            <th>duty details<br>{{ chosen_day }}</th>
-            <th>start time</th>
-            <th>finish time</th>
+            <th>Duty details</th>
+            <th>Start time</th>
+            <th>Finish time</th>
         </tr>
          {% for driver, duty, detail in mixed %}
         <tr>

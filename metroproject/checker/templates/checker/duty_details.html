@@ -5,12 +5,14 @@ Duty details
 {% endblock %}
 
 {% block body %}
-{{ day }}
-<br>
-{{ duty }}
-<br>
-{{ details }}
+
+<h2> Duty details:</h2>
+
+<p>Day: <b>{{ day.capitalize }}</b></p>
+<p> Duty number: <b>{{ duty }}</b></p>
+<p>Start time: <b>{{ details.start_time|time:"H:i" }}</b></p>
+<p>Finish time: <b>{{ details.finish_time|time:"H:i" }}</b></p>
 <a href="{% url 'duty_card' day duty %}">see duty card</a>
-<br>
+<br><br>
 <a href="{{ request.META.HTTP_REFERER }}">Return to previous view</a>
 {% endblock %}
