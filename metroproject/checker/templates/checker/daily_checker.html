@@ -5,10 +5,11 @@ One day checker
 {% endblock %}
 
 {% block body %}
-
+<br>
     {{ chosen_day.capitalize }}
     {{ given_date }}
 <br>
+<h3>PLEASE REMEMBER: after midnight the NEXT NIGHT duty is displayed</h3>
 <form action="{% url 'daily_checker_today' %}" method="get">
     <label for="date"> Enter date to display: </label>
     <input type="date" id="date"  name="searched_date" value="{{given_date}}">
@@ -24,6 +25,7 @@ One day checker
             <th>Duty details</th>
             <th>Start time</th>
             <th>Finish time</th>
+            <th>Duty card</th>
         </tr>
          {% for driver, duty, detail in mixed %}
         <tr>
@@ -31,6 +33,7 @@ One day checker
             <td> {{ duty }} </td>
             <td> {{ detail.start_time|time:"H:i" }}</td>
             <td> {{ detail.finish_time|time:"H:i" }}</td>
+            <td><a href="{% url 'duty_card' chosen_day duty %}">see duty card</a></td>
         </tr>
      {% endfor %}
  </table>

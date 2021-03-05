@@ -28,11 +28,11 @@ All duties details
     </tr>
     {% for item in details %}
     <tr>
-        <th>{{ item.duty }}</th>
+        <th><a href="{% url 'duty_details' day_range item.duty %}">{{ item.duty }}</a></th>
         <th>{{ item.duty.route }}</th>
         <th>{{ item.start_time|time:"H:i" }}</th>
         <th>{{ item.finish_time|time:"H:i" }}</th>
-        <th><a href="{% url 'duty_card' day_range item.duty %}" target="_blank">open duty card</a></th>
+        <th><a href="{% url 'duty_card' day_range item.duty %}" target="_blank">see duty card</a></th>
     </tr>
     {% empty %}
     {{ 'please select a day range' }}

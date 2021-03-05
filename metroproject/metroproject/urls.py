@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('checker/', include('checker.urls')),
     path('', TemplateView.as_view(template_name='checker/index.html')),
+    path('holidays/', include('holidays.urls'))
 ]
