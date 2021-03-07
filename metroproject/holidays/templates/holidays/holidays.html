@@ -5,5 +5,38 @@ Holidays
 {% endblock %}
 
 {% block body %}
-<h1>this will be the holiday page</h1>
+<h1> {{year}} </h1>
+
+<form action="{% url 'holidays' %}" method="get">
+<label for="year">Choose year:</label>
+<select name="year" id="year">
+    <option value="" disabled selected >Check holidays in...</option>
+    <option value="year_2021">2021</option>
+    <option value="year_2022">2022</option>
+    <option value="year_2023">2023</option>
+    <option value="year_2024">2024</option>
+</select>
+    <input type="submit" value="Check holidays">
+</form>
+<table>
+    <tr>
+        <th>Name:</th>
+        <th>Block:</th>
+        <th>Early Winter:</th>
+        <th>Summer:</th>
+        <th>Late Winter:</th>
+    </tr>
+<!--    looping around the queryset and extracting values by their index (see view)-->
+    {% for driver in drivers %}
+    <tr>
+        <td>{{ driver.0 }}</td>
+        <td>{{ driver.1 }}</td>
+        <td>{{ driver.2|date:'j F Y' }}</td>
+        <td>{{ driver.3|date:'j F Y' }}</td>
+        <td>{{ driver.4|date:'j F Y' }}</td>
+        {% empty %}
+        {{ "Year needs to be chosen" }}
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
