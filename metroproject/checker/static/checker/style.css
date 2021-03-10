@@ -1,8 +1,19 @@
-html {
-    background: Black;
-    color: red;
+.main-custom {
+    text-align: center;
 }
 
-a {
-    color:green;
+.main-custom a:link{
+    text-decoration: none;
+}
+
+.main-custom a:active{
+    color: yellow;
+}
+
+.table-date-heading {
+    word-spacing: 100px;
+}
+
+#chosenday {
+    color: red;
 }

@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from .models import Driver, EarlyWinter, Summer, LateWinter
-from django.db.models import F
 
-# Create your views here.
-def holidays(request):
-    chosen_year = request.GET.get('year')
-    if chosen_year is not None:
-        year = 'Our holidays in' + chosen_year.split('_')[1]
-        drivers = Driver.objects.values_list('name', 'block_id', f'block__{chosen_year}', f'block__summer__{chosen_year}',
-                                    f'block__common_block__{chosen_year}')
+
+
+def holidays(request, year=None):
+    if year is not None:
+        drivers = Driver.objects.values_list('name', 'block_id', f'block__year_{year}', f'block__summer__year_{year}',
+                                    f'block__common_block__year_{year}')
+        message = f'Holidays in year {year}'
     else:
-        year = 'Please choose a year...'
         drivers = Driver.objects.all()
-    return render(request, 'holidays/holidays.html', context={'drivers': drivers, 'year':year })
+        message = 'Choose a year below...'
+    context = {'drivers': drivers, 'message': message, 'year': year}
+    return render(request, 'holidays/holidays.html', context)
+
+
+def test():
+    pass

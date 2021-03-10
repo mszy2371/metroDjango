@@ -5,20 +5,19 @@ All duties details
 {% endblock %}
 
 {% block body %}
-<form action="{% url 'all_duty_details' %}" method="get">
-<label for="day_range">Choose a day:</label>
-<select name="day_range" id="day_range">
-    <option value="" disabled selected>Select a day range..</option>
-    <option value="monday">Monday - Thursday</option>
-    <option value="friday">Friday</option>
-    <option value="saturday">Saturday</option>
-    <option value="sunday">Sunday</option>
-</select>
-    <input type="submit" value="Check duties">
-</form>
-<br>
-<h2> Duty range selected: <b>{{ display_day.title }}</b> </h2>
-<table rules="all">
+<div class="main-custom">
+<h2>{{ message }}<b>{{ display_day.title }}</b> </h2>
+<div class="dropdown">
+  <button class="btn btn-secondary link-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+          aria-expanded="false">Choose a day</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'monday' %}">Monday - Thursday</a></li>
+    <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'friday' %}">Friday</a></li>
+    <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'saturday' %}">Saturday</a></li>
+    <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'sunday' %}">Sunday</a></li>
+  </ul>
+</div>
+<table class="table table-dark table-striped">
     <tr>
         <th>Duty no:</th>
         <th>Route no:</th>
@@ -28,16 +27,16 @@ All duties details
     </tr>
     {% for item in details %}
     <tr>
-        <th><a href="{% url 'duty_details' day_range item.duty %}">{{ item.duty }}</a></th>
-        <th>{{ item.duty.route }}</th>
-        <th>{{ item.start_time|time:"H:i" }}</th>
-        <th>{{ item.finish_time|time:"H:i" }}</th>
-        <th><a href="{% url 'duty_card' day_range item.duty %}" target="_blank">see duty card</a></th>
+        <td><a href="{% url 'duty_details' day_range item.duty %}">{{ item.duty }}</a></td>
+        <td>{{ item.duty.route }}</td>
+        <td>{{ item.start_time|time:"H:i" }}</td>
+        <td>{{ item.finish_time|time:"H:i" }}</td>
+        <td><a href="{% url 'duty_card' day_range item.duty %}" target="_blank">see duty card</a></td>
     </tr>
     {% empty %}
-    {{ 'please select a day range' }}
+    {{ 'Nothing selected' }}
     {% endfor %}
 
 </table>
-
+</div>
 {% endblock %}

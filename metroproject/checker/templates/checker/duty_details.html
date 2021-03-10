@@ -5,14 +5,16 @@ Duty details
 {% endblock %}
 
 {% block body %}
-
+<div class="main-custom">
 <h2> Duty details:</h2>
 
 <p>Day: <b>{{ day.capitalize }}</b></p>
 <p> Duty number: <b>{{ duty }}</b></p>
 <p>Start time: <b>{{ details.start_time|time:"H:i" }}</b></p>
 <p>Finish time: <b>{{ details.finish_time|time:"H:i" }}</b></p>
-<a href="{% url 'duty_card' day duty %}">see duty card</a>
-<br><br>
-<a href="{{ request.META.HTTP_REFERER }}">Return to previous view</a>
+      <button type="button" class="btn btn-primary link-warning" onclick="location.href='{% url 'duty_card' day duty %}'">see duty card</button>
+    <br><br>
+      <button type="button" class="btn btn-secondary link-warning" onclick="location.href='{{ request.META.HTTP_REFERER }}'">Return to previous view</button>
+
+</div>
 {% endblock %}

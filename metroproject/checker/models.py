@@ -79,3 +79,8 @@ class Rota(models.Model):
         return f'{self.saturday} {self.sunday} {self.monday} {self.tuesday}' \
                f' {self.wednesday} {self.thursday} {self.friday}'
 
+
+class DoorCodes(models.Model):
+    place = models.CharField(max_length=40)
+    code = models.CharField(max_length=20)
+

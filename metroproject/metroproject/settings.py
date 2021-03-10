@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import mimetypes
+
 
 
 load_dotenv()
@@ -39,6 +41,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'checker',
     'holidays',
+    'bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,3 +131,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+mimetypes.add_type("text/css", ".css", True)

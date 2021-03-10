@@ -5,41 +5,44 @@ Full Week Rota
 {% endblock %}
 
 {% block body %}
-    date: {{ given_date }}, {{ chosen_day.capitalize}}
+<div class="main-custom">
+    <h4>{{ chosen_day.capitalize }}, {{ given_date }}</h4>
 <br>
-    week commencing: {{ week_commencing.isoformat }}
+    Week commencing: <b>{{ week_commencing.isoformat }}</b>
 <br>
 <form action="{% url 'full_rota_solo' %}" method="get">
     <label for="date"> Enter date for all week view: </label>
     <input type="date" id="date" name="searched_date" value="{{ given_date }}">
     <input type="submit" name="submit">
 </form>
-    <br>
-    <a href="{% url 'full_rota' prev_week %}">Previous week</a>
-    <a href="{% url 'full_rota' next_week %}">Next week</a>
-    <a href="{% url 'full_rota' today %}">Show current week's rota</a>
-    <table rules="all">
-        <tr>
-            <th>Drivers</th>
-            {% for day in table_dates %}
-            {% if day == chosen_day %}
-            <th><h3>{{ day.capitalize }}</h3></th>
-            {% else %}
-            <th>{{ day.capitalize }}</th>
-            {% endif %}
-            {% endfor %}
-        </tr>
-    {% for driver, line in mixed %}
-        <tr>
-            <td>{{ driver.name }}</td>
-            <td><a href="{% url 'duty_details' 'saturday' line.0 %}">{{ line.0 }}</a> </td>
-            <td><a href="{% url 'duty_details' 'sunday' line.1 %}">{{ line.1 }}</a> </td>
-            <td><a href="{% url 'duty_details' 'monday' line.2 %}">{{ line.2 }}</a> </td>
-            <td><a href="{% url 'duty_details' 'tuesday' line.3 %}">{{ line.3 }}</a> </td>
-            <td><a href="{% url 'duty_details' 'wednesday' line.4 %}">{{ line.4 }}</a> </td>
-            <td><a href="{% url 'duty_details' 'thursday' line.5 %}">{{ line.5 }}</a> </td>
-            <td><a href="{% url 'duty_details' 'saturday' line.6 %}">{{ line.6 }}</a> </td>
-        </tr>
-         {% endfor %}
-       </table>
+    <div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary link-warning" onclick="location.href='{% url 'full_rota' prev_week %}'">Previous week</button>
+      <button type="button" class="btn btn-secondary link-warning" onclick="location.href='{% url 'full_rota' today %}'">Show current week's rota</button>
+  <button type="button" class="btn btn-primary link-warning" onclick="location.href='{% url 'full_rota' next_week %}'">Next week</button>
+</div>
+<table class="table table-dark table-striped">
+    <tr>
+        <th>Drivers</th>
+        {% for day in table_dates %}
+        {% if day == parsed_date|date:'D Y-m-d' %}
+        <th class="table-date-heading"><b id="chosenday">{{ day.capitalize }}</b></th>
+        {% else %}
+        <th class="table-date-heading">{{ day.capitalize }}</th>
+        {% endif %}
+        {% endfor %}
+    </tr>
+{% for driver, line in mixed %}
+    <tr>
+        <td><b>{{ driver.name }}</b></td>
+        <td><button type="button" class="btn btn-secondary link-light"  onclick="location.href='{% url 'duty_details' 'saturday' line.0 %}'">{{ line.0 }}</button></td>
+        <td><button type="button" class="btn btn-secondary link-light"  onclick="location.href='{% url 'duty_details' 'saturday' line.1 %}'">{{ line.1 }}</button></td>
+        <td><button type="button" class="btn btn-secondary link-light"  onclick="location.href='{% url 'duty_details' 'saturday' line.2 %}'">{{ line.2 }}</button></td>
+        <td><button type="button" class="btn btn-secondary link-light"  onclick="location.href='{% url 'duty_details' 'saturday' line.3 %}'">{{ line.3 }}</button></td>
+        <td><button type="button" class="btn btn-secondary link-light"  onclick="location.href='{% url 'duty_details' 'saturday' line.4 %}'">{{ line.4 }}</button></td>
+        <td><button type="button" class="btn btn-secondary link-light"  onclick="location.href='{% url 'duty_details' 'saturday' line.5 %}'">{{ line.5 }}</button></td>
+        <td><button type="button" class="btn btn-secondary link-light"  onclick="location.href='{% url 'duty_details' 'saturday' line.6 %}'">{{ line.6 }}</button></td>
+    </tr>
+     {% endfor %}
+   </table>
+    </div>
 {% endblock %}

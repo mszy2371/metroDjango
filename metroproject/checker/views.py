@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from django.urls import reverse
-from django.http import Http404, HttpResponseRedirect
-from .models import Duty, Driver, Rota, MondayThursday, Friday, Saturday, Sunday
+from .models import Duty, Driver, Rota, MondayThursday, Friday, Saturday, Sunday, DoorCodes
 import datetime as dt
 
 
@@ -35,7 +33,7 @@ def full_rota(request, given_date=today, daily=False):
     table_dates = []
     for x in range(0, 7):
         table_day = week_commencing + dt.timedelta(days=x)
-        table_dates.append(table_day.strftime('%A %Y-%m-%d'))
+        table_dates.append(table_day.strftime('%a %Y-%m-%d'))
     drivers = Driver.objects.all()
     rota = Rota.objects.all().values_list(*weekdays)
     current_rota = rota[week: len(rota)] + rota[:week]
@@ -50,7 +48,7 @@ def full_rota(request, given_date=today, daily=False):
     mixed2 = zip(drivers, current_day, details)
     context_weekly = {'mixed': mixed, 'drivers': drivers, 'weekdays': weekdays, 'chosen_day': weekdays[day_no],
                       'given_date': given_date, 'week_commencing': week_commencing, 'table_dates': table_dates,
-                      'next_week': next_week, 'prev_week': prev_week, 'today': today}
+                      'next_week': next_week, 'prev_week': prev_week, 'today': today, 'parsed_date': parsed_date}
     context_daily = {'mixed': mixed2, 'drivers': drivers, 'current_day': current_day, 'given_date': given_date,
                      'chosen_day': weekdays[day_no], 'details': details, 'next_day': next_day, 'prev_day': prev_day,
                      'today': today}
@@ -60,19 +58,20 @@ def full_rota(request, given_date=today, daily=False):
         return render(request, 'checker/daily_checker.html', context_daily)
 
 
-def all_duty_details(request):
-    day_range = request.GET.get('day_range')
-    if day_range:
-        cls = mapping[day_range]
-        display_day = day_range
-        if display_day in ('monday', 'tuesday', 'wednesday', 'thursday'):
+def all_duty_details(request, day=None):
+    if day is not None:
+        message = 'Selected duty range: '
+        cls = mapping[day]
+        if day in ('monday', 'tuesday', 'wednesday', 'thursday'):
             display_day = 'Monday - Thursday'
+        else:
+            display_day = day
         details = cls.objects.all().exclude(duty_id='OFF').exclude(duty_id='***').order_by('duty_id')
-
-        return render(request, 'checker/all_duty_details.html',  context={'details': details, 'day_range': day_range,
-                                                                          'display_day': display_day })
+        context = {'details': details, 'day_range': day, 'display_day': display_day, 'message': message}
+        return render(request, 'checker/all_duty_details.html', context)
     else:
-        return render(request, 'checker/all_duty_details.html')
+        message = "Please choose a day below..."
+        return render(request, 'checker/all_duty_details.html', context={'message': message})
 
 
 
@@ -80,7 +79,8 @@ def duty_details(request, day, duty):
     try:
         cls = mapping[day]
         details = cls.objects.get(duty=duty)
-        return render(request, 'checker/duty_details.html', context={'day': day, 'duty': duty, 'details': details})
+        context = {'day': day, 'duty': duty, 'details': details}
+        return render(request, 'checker/duty_details.html', context)
     except:
         message = f'Duty number {duty} does not exist on {day.capitalize()}\'s schedule'
         return render(request, 'checker/error.html', context={'message': message})
@@ -100,4 +100,11 @@ def duty_card(request, day, duty):
     except:
         message = 'No duty card here'
         return render(request, 'checker/error.html', context={'message': message})
+
+
+def door_codes(request):
+    codes = DoorCodes.objects.all()
+    title = 'Door codes'
+    return render(request, 'checker/door_codes.html', context={'codes': codes, 'title': title})
+
 
