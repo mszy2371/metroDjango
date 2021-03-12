@@ -7,15 +7,17 @@
 {% block body %}
 <div class="main-custom">
 <h1>{{ title }}:</h1>
-<table class="table table-dark table-striped">
+</div>
+<div class="container col-sm-4">
+<table class="table table-sm table-dark table-striped">
     <tr>
-        <th>Place:</th>
-        <th>Code:</th>
+        <th scope="col">Place:</th>
+        <th scope="col">Code:</th>
     </tr>
     {% for item in codes %}
     <tr>
-    <th>{{ item.place }}</th>
-    <th>{{ item.code }}</th>
+    <td>{{ item.place }}</td>
+    <td>{{ item.code }}</td>
     </tr>
     {% endfor %}
 </table>

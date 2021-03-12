@@ -6,20 +6,20 @@ Single day checker
 
 {% block body %}
 <div class="main-custom">
-    {{ chosen_day.capitalize }}, {{ given_date }}
-<br>
+    <h4>{{ chosen_day.capitalize }}, {{ given_date }}</h4>
 <h5>PLEASE REMEMBER: after midnight the NEXT NIGHT duty is displayed!</h5>
 <form action="{% url 'daily_checker_today' %}" method="get">
     <label for="date"> Enter date to display: </label>
     <input type="date" id="date"  name="searched_date" value="{{given_date}}">
-    <input type="submit" name="submit">
+    <input type="submit" name="submit" value="Go to date">
 </form>
 <div class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-primary link-warning" onclick="location.href='{% url 'daily_checker' prev_day %}'">Previous day</button>
-      <button type="button" class="btn btn-secondary link-warning" onclick="location.href='{% url 'daily_checker' today %}'">Show tonight's duties</button>
-  <button type="button" class="btn btn-primary link-warning" onclick="location.href='{% url 'daily_checker' next_day %}'">Next day</button>
+  <button type="button" class="btn btn-primary link-warning btn-sm" onclick="location.href='{% url 'daily_checker' prev_day %}'">Previous day</button>
+      <button type="button" class="btn btn-secondary link-warning btn-sm" onclick="location.href='{% url 'daily_checker' today %}'">Show tonight's duties</button>
+  <button type="button" class="btn btn-primary link-warning btn-sm" onclick="location.href='{% url 'daily_checker' next_day %}'">Next day</button>
 </div>
-<div class="table-responsive">
+</div>
+<div class="container col-sm-7">
   <table class="table table-dark table-striped">
         <tr>
             <th>Drivers</th>
@@ -31,14 +31,17 @@ Single day checker
          {% for driver, duty, detail in mixed %}
         <tr>
             <td><b>{{ driver }}</b> </td>
-            <td><button type="button" class="btn btn-secondary link-light" onclick="location.href='{% url 'duty_details' chosen_day duty %}'">{{ duty }}</button></td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' chosen_day duty %}">{{ duty }}</a></td>
             <td> {{ detail.start_time|time:"H:i" }}</td>
             <td> {{ detail.finish_time|time:"H:i" }}</td>
-            <td><button type="button" class="btn btn-secondary link-light" onclick="location.href='{% url 'duty_card' chosen_day duty %}'">see duty card</button></td>
+            {% if duty == 'OFF' or duty == '***' %}
+            <td> </td>
+            {% else %}
+            <td><a class="text-decoration-none link-warning" href="{% url 'duty_card' chosen_day duty %}">card</a></td>
+        {% endif %}
         </tr>
      {% endfor %}
  </table>
 </div>
-    </div>
 
 {% endblock %}

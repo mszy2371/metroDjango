@@ -13,7 +13,3 @@ def holidays(request, year=None):
         message = 'Choose a year below...'
     context = {'drivers': drivers, 'message': message, 'year': year}
     return render(request, 'holidays/holidays.html', context)
-
-
-def test():
-    pass

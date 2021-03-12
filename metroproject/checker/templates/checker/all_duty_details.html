@@ -7,32 +7,34 @@ All duties details
 {% block body %}
 <div class="main-custom">
 <h2>{{ message }}<b>{{ display_day.title }}</b> </h2>
-<div class="dropdown">
-  <button class="btn btn-secondary link-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-          aria-expanded="false">Choose a day</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'monday' %}">Monday - Thursday</a></li>
-    <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'friday' %}">Friday</a></li>
-    <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'saturday' %}">Saturday</a></li>
-    <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'sunday' %}">Sunday</a></li>
-  </ul>
+    <div class="dropdown">
+      <button class="btn btn-secondary link-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+              aria-expanded="false">Choose a day</button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'monday' %}">Monday - Thursday</a></li>
+        <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'friday' %}">Friday</a></li>
+        <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'saturday' %}">Saturday</a></li>
+        <li><a class="dropdown-item" href="{% url 'all_duty_details_day' 'sunday' %}">Sunday</a></li>
+      </ul>
+    </div>
 </div>
-<table class="table table-dark table-striped">
-    <tr>
-        <th>Duty no:</th>
-        <th>Route no:</th>
-        <th>Start time</th>
-        <th>Finish time</th>
-        <th>Duty card</th>
-    </tr>
-    {% for item in details %}
-    <tr>
-        <td><a href="{% url 'duty_details' day_range item.duty %}">{{ item.duty }}</a></td>
-        <td>{{ item.duty.route }}</td>
-        <td>{{ item.start_time|time:"H:i" }}</td>
-        <td>{{ item.finish_time|time:"H:i" }}</td>
-        <td><a href="{% url 'duty_card' day_range item.duty %}" target="_blank">see duty card</a></td>
-    </tr>
+<div class="container col-sm-6">
+        <table class="table table-dark table-striped">
+        <tr>
+            <th>Duty no:</th>
+            <th>Route no:</th>
+            <th>Start time</th>
+            <th>Finish time</th>
+            <th>Duty card</th>
+        </tr>
+        {% for item in details %}
+        <tr>
+            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' day_range item.duty %}">{{ item.duty }}</a></td>
+            <td>{{ item.duty.route }}</td>
+            <td>{{ item.start_time|time:"H:i" }}</td>
+            <td>{{ item.finish_time|time:"H:i" }}</td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'duty_card' day_range item.duty %}" target="_blank">card</a></td>
+        </tr>
     {% empty %}
     {{ 'Nothing selected' }}
     {% endfor %}

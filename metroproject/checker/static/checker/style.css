@@ -1,3 +1,7 @@
+.background-1 {
+    background-image: url('images/shot.png');
+}
+
 .main-custom {
     text-align: center;
 }
@@ -16,4 +20,8 @@
 
 #chosenday {
     color: red;
+}
+
+.doorcode-table {
+    text-align: left;
 }
