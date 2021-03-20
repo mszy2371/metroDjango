@@ -1,5 +1,5 @@
 .background-1 {
-    background-image: url('images/shot.png');
+
 }
 
 .main-custom {
@@ -16,6 +16,7 @@
 
 .main-page {
     margin-top: 10%;
+    background-image: url('images/notepadpencil.jpg');
 }
 
 .table-date-heading {
