@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import  HttpResponseRedirect
+from django.urls import reverse
 from .models import Duty, Driver, Rota, MondayThursday, Friday, Saturday, Sunday, DoorCodes
 import datetime as dt
 
@@ -10,10 +14,26 @@ today = dt.date.today().isoformat()
 
 
 # Views
+
 def index(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('checker:index'))
+        else:
+            return render(request, 'checker/index.html', {'message': 'Invalid credentials'})
     return render(request, 'checker/index.html')
 
 
+def logout_view(request):
+    logout(request)
+    return render(request, 'checker/index.html', {'message': 'Logged out'})
+
+
+@login_required
 def full_rota(request, given_date=today, daily=False):
     searched_date = request.GET.get('searched_date', given_date)
     given_date = searched_date
@@ -57,7 +77,7 @@ def full_rota(request, given_date=today, daily=False):
     else:
         return render(request, 'checker/daily_checker.html', context_daily)
 
-
+@login_required
 def all_duty_details(request, day=None):
     if day is not None:
         message = 'Selected duty range: '
@@ -74,7 +94,7 @@ def all_duty_details(request, day=None):
         return render(request, 'checker/all_duty_details.html', context={'message': message})
 
 
-
+@login_required
 def duty_details(request, day, duty):
     try:
         cls = mapping[day]
@@ -85,7 +105,7 @@ def duty_details(request, day, duty):
         message = f'Duty number {duty} does not exist on {day.capitalize()}\'s schedule'
         return render(request, 'checker/error.html', context={'message': message})
 
-
+@login_required
 def duty_card(request, day, duty):
     # parsing correct url due to unified duty card files name convention
     cls = mapping[day].__name__
@@ -101,7 +121,7 @@ def duty_card(request, day, duty):
         message = 'No duty card here'
         return render(request, 'checker/error.html', context={'message': message})
 
-
+@login_required
 def door_codes(request):
     codes = DoorCodes.objects.all()
     title = 'Door codes'

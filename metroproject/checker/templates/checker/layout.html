@@ -14,24 +14,41 @@
     <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+    <a class="navbar-brand" href="{% url 'checker:index' %}">Home</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" aria-current="page" href="{% url 'full_rota_solo' %}">Full week's rota</a>
-        <a class="nav-link" href="{% url 'daily_checker_today' %}">Single day schedule</a>
-        <a class="nav-link" href="{% url 'all_duty_details' %}">All duty times</a>
-        <a class="nav-link" href="{% url 'holidays' %}" tabindex="-1" aria-disabled="true">Holidays</a>
-        <a class="nav-link" href="{% url 'door_codes' %}" tabindex="-1" aria-disabled="true">Door codes</a>
+        <a class="nav-link" aria-current="page" href="{% url 'checker:full_rota_solo' %}">Full week's rota</a>
+        <a class="nav-link" href="{% url 'checker:daily_checker_today' %}">Single day schedule</a>
+        <a class="nav-link" href="{% url 'checker:all_duty_details' %}">All duty times</a>
+        <a class="nav-link" href="{% url 'holidays:holidays' %}" tabindex="-1" aria-disabled="true">Holidays</a>
+        <a class="nav-link" href="{% url 'checker:door_codes' %}" tabindex="-1" aria-disabled="true">Door codes</a>
       </div>
     </div>
   </div>
 </nav>
-    {% block body %}
-    {% endblock %}
+        {% if request.user.is_authenticated %}
+             <h5> Welcome, {{ request.user.first_name }} </h5>
+          <div><a class="btn btn-outline-dark" href="{% url 'checker:logout' %}">Log Out</a></div>
+        {% else %}
+        {% if message %}
+        <div>{{ message }}</div>
+         {% endif %}
+          <div id="login">
+            <form class="d-flex" action="{% url 'checker:index' %}" method="post">
+                {% csrf_token %}
+                <label id="label" for="password">Enter credentials</label>
+                <input id="password" type="text" name="username" placeholder="Username" value="">
+                <input type="password" name="password" placeholder="Password" value="">
+                <input class="btn btn-outline-dark" type="submit" value="Login">
+            </form>
+              </div>
+        {% endif %}
+        {% block body %}
+        {% endblock %}
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>

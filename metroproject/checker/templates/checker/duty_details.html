@@ -12,7 +12,7 @@ Duty details
 <p> Duty number: <b>{{ duty }}</b></p>
 <p>Start time: <b>{{ details.start_time|time:"H:i" }}</b></p>
 <p>Finish time: <b>{{ details.finish_time|time:"H:i" }}</b></p>
-      <button type="button" class="btn btn-primary link-warning" onclick="location.href='{% url 'duty_card' day duty %}'">see duty card</button>
+      <button type="button" class="btn btn-primary link-warning" onclick="location.href='{% url 'checker:duty_card' day duty %}'">see duty card</button>
     <br><br>
       <button type="button" class="btn btn-secondary link-warning" onclick="location.href='{{ request.META.HTTP_REFERER }}'">Return to previous view</button>
 

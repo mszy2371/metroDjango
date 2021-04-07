@@ -16,7 +16,6 @@ import os
 import mimetypes
 
 
-
 load_dotenv()
 
 
@@ -41,7 +40,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'checker',
     'holidays',
-    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

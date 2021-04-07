@@ -1,8 +1,9 @@
 from django.urls import path
-
 from . import views
+app_name = 'checker'
 
 urlpatterns = [
+    path('logout/', views.logout_view, name='logout'),
     path('', views.index, name='index'),
     path('full_rota/', views.full_rota, {'daily': False}, name='full_rota_solo'),
     path('full_rota/<given_date>/', views.full_rota, {'daily': False}, name='full_rota'),

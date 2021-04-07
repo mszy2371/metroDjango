@@ -1,6 +1,9 @@
 .background-1 {
 
 }
+#label {
+    margin: 5px;
+}
 
 .main-custom {
     text-align: center;
@@ -30,3 +33,4 @@
 .doorcode-table {
     text-align: left;
 }
+

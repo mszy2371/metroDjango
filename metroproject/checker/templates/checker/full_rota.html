@@ -8,15 +8,15 @@ Full Week Rota
 <div class="main-custom">
     <h4>{{ chosen_day.capitalize }}, {{ given_date }}</h4>
     Week commencing: <b>{{ week_commencing.isoformat }}</b>
-<form action="{% url 'full_rota_solo' %}" method="get">
+<form action="{% url 'checker:full_rota_solo' %}" method="get">
     <label for="date"> Enter date for all week view: </label>
     <input type="date" id="date" name="searched_date" value="{{ given_date }}">
     <input type="submit" name="submit" value="Go to date">
 </form>
     <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary link-warning btn-sm" onclick="location.href='{% url 'full_rota' prev_week %}'">Previous week</button>
-        <button type="button" class="btn btn-secondary link-warning btn-sm" onclick="location.href='{% url 'full_rota' today %}'">Show current week's rota</button>
-        <button type="button" class="btn btn-primary link-warning btn-sm" onclick="location.href='{% url 'full_rota' next_week %}'">Next week</button>
+        <button type="button" class="btn btn-primary link-warning btn-sm" onclick="location.href='{% url 'checker:full_rota' prev_week %}'">Previous week</button>
+        <button type="button" class="btn btn-secondary link-warning btn-sm" onclick="location.href='{% url 'checker:full_rota' today %}'">Show current week's rota</button>
+        <button type="button" class="btn btn-primary link-warning btn-sm" onclick="location.href='{% url 'checker:full_rota' next_week %}'">Next week</button>
     </div>
 </div>
 <div class="container col-sm-8">
@@ -34,13 +34,13 @@ Full Week Rota
         {% for driver, line in mixed %}
         <tr>
             <td><b>{{ driver.name }}</b></td>
-            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' 'saturday' line.0 %}">{{ line.0 }}</a></td>
-            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' 'sunday' line.1 %}">{{ line.1 }}</a></td>
-            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' 'monday' line.2 %}">{{ line.2 }}</a></td>
-            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' 'tuesday' line.3 %}">{{ line.3 }}</a></td>
-            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' 'wednesday' line.4 %}">{{ line.4 }}</a></td>
-            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' 'thursday' line.5 %}">{{ line.5 }}</a></td>
-            <td><a class="text-decoration-none link-warning" href="{% url 'duty_details' 'friday' line.6 %}">{{ line.6 }}</a></td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'checker:duty_details' 'saturday' line.0 %}">{{ line.0 }}</a></td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'checker:duty_details' 'sunday' line.1 %}">{{ line.1 }}</a></td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'checker:duty_details' 'monday' line.2 %}">{{ line.2 }}</a></td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'checker:duty_details' 'tuesday' line.3 %}">{{ line.3 }}</a></td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'checker:duty_details' 'wednesday' line.4 %}">{{ line.4 }}</a></td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'checker:duty_details' 'thursday' line.5 %}">{{ line.5 }}</a></td>
+            <td><a class="text-decoration-none link-warning" href="{% url 'checker:duty_details' 'friday' line.6 %}">{{ line.6 }}</a></td>
         </tr>
          {% endfor %}
    </table>

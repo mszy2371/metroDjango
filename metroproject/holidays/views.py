@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import Driver, EarlyWinter, Summer, LateWinter
 
 
-
+@login_required
 def holidays(request, year=None):
     if year is not None:
         drivers = Driver.objects.values_list('name', 'block_id', f'block__year_{year}', f'block__summer__year_{year}',
