@@ -5,6 +5,9 @@ Main Page
 {% endblock %}
 
 {% block body %}
+{% if request.user.is_authenticated %}
+             <h5> Hello, {{ request.user.first_name }}! </h5>
+{% endif %}
 
 <div class="container main-custom main-page">
   <h3>Welcome!! Please log in and choose one of the following options:</h3>
