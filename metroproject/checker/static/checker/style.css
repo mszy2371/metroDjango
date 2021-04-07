@@ -4,6 +4,7 @@
 
 .login {
     height: 100px;
+    width: 200px;
 }
 
 #not-logged {
@@ -12,16 +13,19 @@
 
 #name {
     padding-bottom: 5px;
-    width: 225px;
+    width: 150px;
+    font-size:10px;
 }
 
 #password {
     padding-bottom: 5px;
-    width: 130px;
+    width: 80px;
+    font-size:10px;
 }
 
 .label {
     margin: 5px;
+    font-size:10px;
 }
 
 .main-custom {
@@ -37,7 +41,7 @@
 }
 
 .main-page {
-    margin-top: 10%;
+    margin-top: 15%;
 }
 
 .table-date-heading {
