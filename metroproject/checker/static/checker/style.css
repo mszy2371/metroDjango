@@ -1,7 +1,26 @@
 .background-1 {
 
 }
-#label {
+
+.login {
+    height: 100px;
+}
+
+#not-logged {
+    margin-top: 10%;
+}
+
+#name {
+    padding-bottom: 5px;
+    width: 225px;
+}
+
+#password {
+    padding-bottom: 5px;
+    width: 130px;
+}
+
+.label {
     margin: 5px;
 }
 
@@ -19,7 +38,6 @@
 
 .main-page {
     margin-top: 10%;
-    background-image: url('images/notepadpencil.jpg');
 }
 
 .table-date-heading {
@@ -32,5 +50,9 @@
 
 .doorcode-table {
     text-align: left;
+}
+
+.login-form {
+
 }
 

@@ -30,22 +30,26 @@
     </div>
   </div>
 </nav>
+        <div class="login">
         {% if request.user.is_authenticated %}
-             <h5> Welcome, {{ request.user.first_name }} </h5>
+             <h5> Hello, {{ request.user.first_name }}! </h5>
           <div><a class="btn btn-outline-dark" href="{% url 'checker:logout' %}">Log Out</a></div>
-        {% else %}
-        {% if message %}
-        <div>{{ message }}</div>
-         {% endif %}
-          <div id="login">
-            <form class="d-flex" action="{% url 'checker:index' %}" method="post">
+            {% else %}
+            {% if message %}
+            <div>{{ message }}</div>
+            {% endif %}
+          <div class="row">
+            <form action="{% url 'checker:index' %}" method="post">
                 {% csrf_token %}
-                <label id="label" for="password">Enter credentials</label>
-                <input id="password" type="text" name="username" placeholder="Username" value="">
-                <input type="password" name="password" placeholder="Password" value="">
+                <label class="label" for="name">Name:</label>
+                <input id="name" type="text" name="username" placeholder="Username" value="">
+                <br>
+                <label class="label" for="password">Password:</label>
+                <input id="password" type="password" name="password" placeholder="Password" value="">
                 <input class="btn btn-outline-dark" type="submit" value="Login">
             </form>
               </div>
+          </div>
         {% endif %}
         {% block body %}
         {% endblock %}

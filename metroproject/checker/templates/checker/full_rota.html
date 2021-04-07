@@ -19,8 +19,8 @@ Full Week Rota
         <button type="button" class="btn btn-primary link-warning btn-sm" onclick="location.href='{% url 'checker:full_rota' next_week %}'">Next week</button>
     </div>
 </div>
-<div class="container col-sm-8">
-    <table class="table table-dark table-striped table-responsive">
+<div class="table-responsive">
+    <table class="table table-dark table-striped">
         <tr>
             <th>Drivers</th>
             {% for day in table_dates %}

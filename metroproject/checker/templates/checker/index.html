@@ -7,7 +7,7 @@ Main Page
 {% block body %}
 
 <div class="container main-custom main-page">
-  <h2>Welcome!! Please choose one of the following options:</h2>
+  <h3>Welcome!! Please log in and choose one of the following options:</h3>
   <div class="d-grid gap-2 col-6 mx-auto" role="group" aria-label="Basic mixed styles example">
     <button type="button" class="btn btn-danger btn-lg link-dark" onclick="location.href='{%url 'checker:full_rota_solo' %}'">Full week view</button>
     <button type="button" class="btn btn-warning btn-lg link-dark" onclick="location.href='{% url 'checker:all_duty_details' %}'">All duty times</button>

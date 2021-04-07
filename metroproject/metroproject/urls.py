@@ -20,8 +20,9 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/login/', auth_views.LoginView.as_view(template_name='checker/error.html')),
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='checker/not_logged.html')),
     path('checker/', include('checker.urls')),
     path('', TemplateView.as_view(template_name='checker/index.html')),
     path('holidays/', include('holidays.urls')),
 ]
+
