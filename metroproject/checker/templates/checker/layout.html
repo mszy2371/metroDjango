@@ -30,8 +30,8 @@
     </div>
   </div>
 </nav>
+         {% if request.user.is_authenticated %}
         <div class="login">
-        {% if request.user.is_authenticated %}
           <div><a class="btn btn-outline-dark" href="{% url 'checker:logout' %}">Log Out</a></div>
             {% else %}
             {% if message %}
