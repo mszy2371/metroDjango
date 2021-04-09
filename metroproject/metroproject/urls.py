@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='checker/index.html')),
     path('holidays/', include('holidays.urls')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
 
