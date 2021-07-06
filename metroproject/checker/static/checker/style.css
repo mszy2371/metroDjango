@@ -44,12 +44,13 @@
 }
 
 .table-date-heading {
-    word-spacing: 100px;
+    word-spacing: 150px;
 }
 
 #chosenday {
     color: red;
 }
+
 
 .doorcode-table {
     text-align: left;
