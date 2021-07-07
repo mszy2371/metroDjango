@@ -130,3 +130,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 mimetypes.add_type("text/css", ".css", True)
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
