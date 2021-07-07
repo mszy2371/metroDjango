@@ -24,7 +24,7 @@ Full Week Rota
         <tr>
             <th>Drivers</th>
             {% for day in table_dates %}
-            {% if day == parsed_date|date:'D Y-m-d' %}
+            {% if day == today|date:'D Y-m-d' %}
             <th class="table-date-heading"><b id="chosenday">{{ day.capitalize }}</b></th>
             {% else %}
             <th class="table-date-heading">{{ day.capitalize }}</th>

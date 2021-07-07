@@ -10,8 +10,6 @@ import datetime as dt
 # General logic
 mapping = {'saturday': Saturday, 'sunday': Sunday, 'monday': MondayThursday, 'tuesday': MondayThursday,
            'wednesday': MondayThursday, 'thursday': MondayThursday, 'friday': Friday}
-today = dt.date.today().isoformat()
-
 
 # Views
 
@@ -34,7 +32,10 @@ def logout_view(request):
 
 
 @login_required
-def full_rota(request, given_date=today, daily=False):
+def full_rota(request, given_date=None, daily=False):
+    today = dt.date.today()
+    if not given_date:
+        given_date = today.isoformat()
     searched_date = request.GET.get('searched_date', given_date)
     given_date = searched_date
     parsed_date = dt.date.fromisoformat(given_date)
@@ -76,6 +77,7 @@ def full_rota(request, given_date=today, daily=False):
         return render(request, 'checker/full_rota.html', context_weekly)
     else:
         return render(request, 'checker/daily_checker.html', context_daily)
+
 
 @login_required
 def all_duty_details(request, day=None):
