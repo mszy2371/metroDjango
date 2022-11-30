@@ -1,0 +1,10 @@
+services:
+  app:
+    tty: true
+    build: .
+    container_name: metro_django_app
+    command: runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app

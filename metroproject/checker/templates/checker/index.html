@@ -6,7 +6,7 @@ Main Page
 
 {% block body %}
 {% if request.user.is_authenticated %}
-             <h5> Hello, {{ request.user.first_name }}! </h5>
+             <h5> Hello, {{ request.user.first_name.capitalize }}! </h5>
 {% endif %}
 
 <div class="container main-custom main-page">
